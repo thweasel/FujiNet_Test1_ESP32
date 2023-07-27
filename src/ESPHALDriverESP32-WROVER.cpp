@@ -43,9 +43,9 @@ SS: 5
 
 
 //#define ESP_SPI_INT_OE 48   // OUTPUT (send/stop) --SPI Enable Output of an Address from shift registers
-#define ESP_SPI_INT_STC 16  // D1  OUTPUT (pulse)     --SPI Latch Bus packet in shift registers for output
-#define ESP_SPI_INT_PL  17  // D2 OUTPUT (pulse)     -- SPI Load Host BUS state to shift registers
-#define ESP_SPI_INT_CE  18  // D3  -->>  CAN BE TIED TO GROUND
+#define ESP_SPI_INT_STC 25  // D1  OUTPUT (pulse)     --SPI Latch Bus packet in shift registers for output
+#define ESP_SPI_INT_PL  26  // D2 OUTPUT (pulse)     -- SPI Load Host BUS state to shift registers
+#define ESP_SPI_INT_CE  27  // D3  -->>  CAN BE TIED TO GROUND
 
 
 
@@ -109,8 +109,8 @@ uint8_t * setBusPacketBuffer (uint8_t Data, uint8_t Control, uint16_t Address)
 
 
 SPISettings myTXSpiSettings (4000000,MSBFIRST,SPI_MODE0);
-SPISettings myRXSpiSettings (4000000,MSBFIRST,SPI_MODE2);
-#define LATCHING_us 30
+SPISettings myRXSpiSettings (4000000,MSBFIRST,SPI_MODE0);
+#define LATCHING_us 16
 
 // WRITE method for the bus hardware
 void writeSPI(void)
