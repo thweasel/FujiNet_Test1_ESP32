@@ -15,7 +15,7 @@ void setup() {
   
   pinMode(LED_BUILTIN, OUTPUT);
   
-  //Setup_ESPHALDriver();
+  Setup_ESPHALDriver();
   // put your setup code here, to run once:
   
 }

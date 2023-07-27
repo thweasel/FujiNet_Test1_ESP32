@@ -26,6 +26,16 @@
 // SPI MOSI 51SPI.end();
 // SPI MISO 50
 
+
+/*  ESP32 WROVER SPI PINS
+-SPI PINS-
+MOSI: 23
+MISO: 19
+SCK: 18
+SS: 5
+*/
+
+
 #define SS_START  LOW
 #define SS_END    HIGH
 
@@ -98,8 +108,8 @@ uint8_t * setBusPacketBuffer (uint8_t Data, uint8_t Control, uint16_t Address)
 
 
 
-SPISettings myTXSpiSettings (400000,MSBFIRST,SPI_MODE0);
-SPISettings myRXSpiSettings (400000,MSBFIRST,SPI_MODE2);
+SPISettings myTXSpiSettings (4000000,MSBFIRST,SPI_MODE0);
+SPISettings myRXSpiSettings (4000000,MSBFIRST,SPI_MODE2);
 #define LATCHING_us 30
 
 // WRITE method for the bus hardware
@@ -130,7 +140,7 @@ void writeSPI(void)
   delayMicroseconds(LATCHING_us);
   digitalWrite(ESP_SPI_INT_STC, LOW);
   
-  //SPI.endTransaction();
+  SPI.endTransaction();
   digitalWrite(SS,SS_END);
   
   return;
@@ -159,7 +169,7 @@ void readSPI(void)
   
   SPI.transfer(BusPacketBuffer,4);  
   
-  //SPI.endTransaction(); 
+  SPI.endTransaction(); 
   digitalWrite(SS,SS_END);
   
   
@@ -194,10 +204,25 @@ void stopBusSignals(void)
 // Interface for Hardware Abstraction Layer
 
 
+void showSPIpins (void) 
+{
+  Serial.println("-SPI PINS-");
+  Serial.print("MOSI: ");
+  Serial.println(MOSI);
+  Serial.print("MISO: ");
+  Serial.println(MISO);
+  Serial.print("SCK: ");
+  Serial.println(SCK);
+  Serial.print("SS: ");
+  Serial.println(SS);  
+}
+
 void Setup_ESPHALDriver(void)
 {
 
   // Setup SPI chip Select
+  showSPIpins();
+
   pinMode(SS,OUTPUT);
   digitalWrite(SS,HIGH);
   SPI.begin();
