@@ -105,7 +105,7 @@ SPISettings myRXSpiSettings (400000,MSBFIRST,SPI_MODE2);
 // WRITE method for the bus hardware
 void writeSPI(void)
 { 
-  SPI.begin();
+  
   SPI.beginTransaction(myTXSpiSettings);
   digitalWrite(SS,SS_START);
   // OUTPUT 74XX595 Shift registers (x4)
@@ -132,14 +132,14 @@ void writeSPI(void)
   
   //SPI.endTransaction();
   digitalWrite(SS,SS_END);
-  SPI.end();
+  
   return;
 }
 
 // READ method for the bus hardware
 void readSPI(void)
 { 
-  SPI.begin();
+  
   SPI.beginTransaction(myRXSpiSettings);
   digitalWrite(SS,SS_START);
 
@@ -161,7 +161,7 @@ void readSPI(void)
   
   //SPI.endTransaction(); 
   digitalWrite(SS,SS_END);
-  SPI.end();
+  
   
   // Needed if Shift registers are chained using !Q7
   //BusPacketBuffer[0] = ~BusPacketBuffer[0];
@@ -200,6 +200,7 @@ void Setup_ESPHALDriver(void)
   // Setup SPI chip Select
   pinMode(SS,OUTPUT);
   digitalWrite(SS,HIGH);
+  SPI.begin();
 
   // INPUT PINS
   //pinMode(Z80_HARDLOCK, INPUT);

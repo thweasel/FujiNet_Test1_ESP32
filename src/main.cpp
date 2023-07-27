@@ -4,7 +4,8 @@
 
 
 #define LED_BUILTIN 2
-uint8_t busState[4] = {0,0,0,0};
+//uint8_t busState[4] = {0,0,0,0};
+uint8_t *busState = NULL;
 
 
 void setup() {
@@ -55,7 +56,7 @@ void loop()
   uint8_t hiAddr = (uint8_t)(address >> 8);
 
 
-  if ((data != busState[3]) || (loAddr != busState[1]) || (hiAddr != busState[0]))
+  if ( busState != NULL && ((data != busState[3]) || (loAddr != busState[1]) || (hiAddr != busState[0])) )
   {
 
     if (data != busState[3])
