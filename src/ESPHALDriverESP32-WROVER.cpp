@@ -115,9 +115,10 @@ SPISettings myRXSpiSettings (4000000,MSBFIRST,SPI_MODE0);
 // WRITE method for the bus hardware
 void writeSPI(void)
 { 
-  
-  SPI.beginTransaction(myTXSpiSettings);
   digitalWrite(SS,SS_START);
+
+  SPI.beginTransaction(myTXSpiSettings);
+  
   // OUTPUT 74XX595 Shift registers (x4)
 
 
@@ -149,9 +150,9 @@ void writeSPI(void)
 // READ method for the bus hardware
 void readSPI(void)
 { 
+  digitalWrite(SS,SS_START);
   
   SPI.beginTransaction(myRXSpiSettings);
-  digitalWrite(SS,SS_START);
 
   // INPUT 74xx165 Shift Registers (x4)
 
